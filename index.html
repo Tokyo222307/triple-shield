@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+        <head>
+            <meta charset="utf-8">
+            <title>Triple Shield</title>
+            <style>
+		font-face{
+    font-family: Robotop;
+    src: url('/static/Roboto/Robo.ttf')
+}
+@font-face{
+    font-family: Edu;
+    src: url('/static/Edu_SA_Hand/EduSaHand.ttf')
+}
+body{
+    font-family:Robotop;
+}
+div.home{
+    right:0;left:0;
+    top:0;
+    height:4rem;
+    border-bottom:1px solid black;
+    background:#2040D0;
+    border-radius:5px;
+    padding:1rem;
+    opacity:1;
+    z-index:1;
+    tabIndex:100;
+}
+div.codici{
+    height:2rem;
+    top:0;
+    position:absolute;
+    background:#F0F0F0;
+    opacity:1;
+    z-index:1;
+    tabIndex:100;
+}
+#nome{
+    font-size:3.5rem;
+    color:white;
+    font-family:Edu;
+    top:1rem;
+}
+button.but{
+    font-family:Edu;
+    top:0;bottom:0;
+    height:4rem;
+    max-width:auto;
+    min-width:4rem;
+    float:right;
+    border:1px solid black;
+    background:#A0A0A0;
+    border-radius:10px;
+    transition: border-radius 1s;
+}
+button.bigbut{
+    font-family:Edu;
+    height:4rem;
+    float:right;
+    border-radius:10px;
+    border:1px solid black;
+    background:#A0A0A0;
+    transition: border-radius 1s;
+}
+button.bigbut:hover{
+    background:#A02040;
+    border-radius:15px;
+}
+button.but:hover{
+    background:#D05010;
+    border-radius:15px;
+}
+button.bigbut:active{
+    background:#20A050;
+}
+button.but:active{
+    background:#F0A040;
+}
+div.s{
+    top:8rem;left:0;right:0;bottom:0;
+    position:absolute;
+    background:white;
+    opacity:0;
+    z-index:-1;
+}
+div.s.visible{
+    opacity:1;
+    padding:1rem;
+    tabIndex:1;
+    z-index:0;
+}
+div.codi.visible{
+    opacity:1;
+    padding:1rem;
+    tabIndex:1;
+    z-index:0;
+}
+.pad{
+    padding:1rem;
+}
+.ima{
+    position:absolute;
+    height:100%;
+    right:0;
+    top:0;
+}
+.smallima{
+    position:absolute;
+    max-width:30%;
+    right:0;
+    top:0;
+}
+.text{
+    max-width:70%;
+}
+table, th,tr{
+    border:1px solid black;
+    padding:1rem;
+    max-height:100%;
+}
+button.cod{
+    font-family:Edu;
+    top:0;bottom:0;
+    height:2rem;
+    max-width:auto;
+    min-width:4rem;
+    float:right;
+    border:1px solid black;
+    background:#A0A0A0;
+    border-radius:10px;
+    transition: border-radius 1s;
+}
+button.cod:hover{
+    background:#00A010;
+    border-radius:15px;
+}
+button.cod:active{
+    background:#00F040;
+}
+div.codi{
+    position:absolute;
+    opacity:0;
+    z-index:-1;
+}
+button.sel{
+    background:green;
+}
+
+	    </style>
+        </head>
+        <body onload="toSlide('h')">
+            <div class="home">
+                <span id="nome">Triple Shield</span>
+                <a href="aperta"><button class="bigbut" id="access">Apri la cassaforte</button></a>
+                <button class="but" id="about" onclick="toSlide('a')">Su di noi</button>
+                <button class="but" id="code" onclick="codi()">Codice</button>
+                <button class="but" id="proj" onclick="toSlide('p')">Progetto</button>
+                <button class="but" id="home" onclick="toSlide('h')">Home</button>
+            </div>
+            <div class="s" id="h">
+                <div class="text">
+                    Triple Shield
+                    <br>
+                    Un progetto unico pensato ad aumentare la sicurezza.
+                    <br><br>
+                    Il progetto TRIPLE SHIELD nasce come prototipo per la creazione di un sistema di sicurezza a tripla autenticazione,
+                    dove è richiesto che l’accesso avvenga in modo sincrono tra i dispositivi per l’avvio.
+                    <br><br>
+                    <h3>Obiettivo Principale:</h3>
+                    Sviluppare un sistema di sicurezza con tre punti di accesso che usa la comunicazione Bluetooth per permettere la connessione tra Arduino,
+                    ESP32, Raspberry Pi e un compu  ter.
+                    Il progetto deve essere in grado di attivarsi solo tramite la certificazione multipla dei tre punti di accesso.
+                    <br>
+                    <ol>
+                    <li>Implementare una comunicazione Bluetooth tra ESP32 e Raspberry Pi.</li>
+                    <li>Utilizzare Arduino per leggere il tag RFID.</li>
+                    <li>Utilizzare Flask su Raspberry Pi che apre un'interfaccia creata con JavaScript che permette la comunicazione tra il computer e il sistema embedded.</li>
+                    <li>Integrare tutto in un sistema che simula un meccanismo di controllo con accessi a più livelli.</li>
+                    </ol>
+                </div>
+                <img src="/static/Loga.png" class="ima">
+            </div>
+            <div class="s" id="p">
+                <div class="text">
+                    Il progetto TRIPLE SHIELD serve a dimostrare la fattibilità di un sistema di sicurezza che mette insieme diverse tecnologie e protocolli di comunicazione. La suddivisione dei compiti tra i componenti del progetto ha permesso di costruire una struttura segmentata, necessaria per incrementare la sicurezza del sistema.
+                    Le principali difficoltà sono state:
+                    <ul>
+                        <li>La stabilizzazione della connessione Bluetooth tra ESP32 e Raspberry Pi.</li>
+                        <li>La corretta configurazione del server Flask per gestire le  richieste dal Raspberry.</li>
+                    </ul>
+                    <br>
+                    Queste problematiche sono state superate attraverso una serie di test e debugging del codice. Il sistema anche se un prototipo concede una base per l’effettiva implementazione di reali sistemi di sicurezza multi-fattore in ambienti diversi.
+                    <br><br>
+                    <table>
+                        <tr>
+                            <th>Componenti</th>
+                            <th>Motivazione dell’Uso</th>
+                        </tr>
+                        <tr>
+                            <th>Arduino UNO</th>
+                            <th>Lo utilizzato per gestire i lettori RFID. È economico, ampiamente documentato e facilmente integrabile con moduli RFID.</th>
+                        </tr>
+                        <tr>
+                            <th>ESP32</th>
+                            <th>Lo abbiamo scelto per le sue capacità di connessione wireless Bluetooth, che permettono una comunicazione diretta con Raspberry Pi. Può agire come ponte tra Arduino e Raspberry, avendo più potenza di calcolo e capacità multitasking rispetto ad Arduino.</th>
+                        </tr>
+                        <tr>
+                            <th>Raspberry Pi 4</th>
+                            <th>E’ il componente chiave del sistema e viene utilizzato per la sua superiore potenza di calcolo e per la possibilità di gestire sia la comunicazione Bluetooth che il server web. Possiede un sistema operativo completo, Raspberry Pi OS, che è fondamentale per la flessibilità di questo progetto.</th>
+                        </tr>
+                        <tr>
+                            <th>Flask (Python)</th>
+                            <th>Framework leggero e potente per la creazione di applicazioni web. È stato scelto perché è facile da integrare nel sistema Raspberry ed è perfetto per costruire un’interfaccia di comunicazione con il PC.</th>
+                        </tr>
+                        <tr>
+                            <th>RFID MFRC522</th>
+                            <th>E’ economico e compatto e permette di identificare gli utenti tramite tag univoco, simulando scenari reali di autenticazione fisica.</th>
+                        </tr>
+                        <tr>
+                            <th>JAVASCRIPT,
+                        HTML, CSC</th>
+                            <th>Per rendere l’interfaccia utente più comprensibile e semplice da utilizzare, avendo anche un interfaccia più carina a livello grafico</th>
+                        </tr>
+                    </table>
+                </div>
+                <img src="/static/Bud.png" class="smallima">
+            </div>
+            <div class="s" id="c">
+                <div class="codici">
+                    <button class="cod" onclick="toCodice('ardu')" id="bardu">Arduino (C++)</button>
+                    <button class="cod" onclick="toCodice('rasp')" id="brasp">Raspberry Pi 4 (Python)</button>
+                    <button class="cod" onclick="toCodice('esp')" id="besp">ESP32 (C++)</button>
+                </div>
+                <div class="text codi" id="esp">
+                    #include &ltSPI.h><br>
+                    #include &ltMFRC522.h><br>
+                    #include &ltBluetoothSerial.h><br><br>
+                    #define addr "D83ADDCA032D" //MAC ADRESS DEL RASPBERRY<br>
+                    #define SS_PIN 5    // Pin SDA collegato a GPIO 5<br>
+                    #define RST_PIN 21  // Pin Reset collegato a GPIO 22<br><br>
+                    MFRC522 mfrc522(SS_PIN, RST_PIN); // Creazione oggetto RFID<br>
+                    BluetoothSerial SerialBT; //OGGETTO BLUETOOTH<br><br>
+                    uint8_t fromHexChar(char c){ //CONVERSIONE DA HEX CHAR A UNSIGNED INT<br>
+                        &emsp;uint8_t result = 0;<br>
+                        &emsp;if ((c >= '0') && (c <= '9'))<br>
+                            &emsp;&emsp;result = c - '0';<br>
+                        &emsp;else if ((c >= 'A') && (c <= 'F'))<br>
+                            &emsp;&emsp;result = 10 + c - 'A';<br>
+                        &emsp;else if ((c >= 'a') && (c <= 'f'))<br>
+                            &emsp;&emsp;result = 10 + c - 'a';<br>
+                        &emsp;return result;<br>
+                    }<br><br>
+                    uint8_t MAC_buffer[6]; //VARIABILE PER SALVARE IL MAC ADRESS E RESTITUIRLO NELLA FUNZIONE SOTTO<br>
+                    uint8_t* toMAC(String s){<br>
+                        &emsp;for (uint8_t i = 0; i < 6; i++)<br>
+                        &emsp;{<br>
+                            &emsp;&emsp;MAC_buffer[i] = (fromHexChar(s.charAt(2*i)) << 4) | fromHexChar(s.charAt(2*i + 1));<br>
+                        &emsp;}<br>
+                        return MAC_buffer;<br>
+                    }<br>
+                    void setup() {<br>
+                        &emsp;Serial.begin(9600); // Inizializza la comunicazione seriale<br>
+                        &emsp;pinMode(34,INPUT); //Inizializza i diversi pin per i due arduino<br>
+                        &emsp;pinMode(35,INPUT);<br>
+                        &emsp;SPI.begin(); // Inizializza SPI<br>
+                        &emsp;mfrc522.PCD_Init(); // Inizializza il modulo RFID<br>
+                        &emsp;SerialBT.begin("ESP32Fresh",true); //Inizializza bluetooth<br>
+                        &emsp;Serial.println(SerialBT.connect(toMAC(addr))); //Controlla se si connette con il raspberry, in caso di connessione stampa 1, in caso contrario 0<br>
+                    }<br>
+                    void loop() {<br>
+                        &emsp;if(!SerialBT.connected()){ //Cerca di riconnettersi al raspberry<br>
+                        &emsp;&emsp;Serial.println("Not connected!?");<br>
+                        &emsp;&emsp;while(true){<br>
+                            &emsp;&emsp;&emsp;SerialBT.connect(toMAC(addr));<br>
+                            &emsp;&emsp;&emsp;int c=SerialBT.connected();<br>
+                            &emsp;&emsp;&emsp;Serial.println(c);<br>
+                            &emsp;&emsp;&emsp;if(c){<br>
+                            &emsp;&emsp;&emsp;&emsp;Serial.println("Connesso");<br>
+                            &emsp;&emsp;&emsp;&emsp;break;<br>
+                            &emsp;&emsp;&emsp;}<br>
+                            &emsp;&emsp;&emsp;Serial.println("Trying to reconnect in a second");<br>
+                            &emsp;&emsp;&emsp;delay(1000);<br>
+                        &emsp;&emsp;}<br>
+                        &emsp;&emsp;}<br>
+                        // Verifica se c'è una nuova carta disponibile<br>
+                        &emsp;if (!mfrc522.PICC_IsNewCardPresent()) {<br>
+                            &emsp;&emsp;return;<br>
+                        &emsp;}<br>
+                        // Verifica se la carta è leggibile<br>
+                        &emsp;if (!mfrc522.PICC_ReadCardSerial()) {<br>
+                            &emsp;&emsp;return;<br>
+                        &emsp;}<br>
+                        //Salva l'UUID del tag in interi<br>
+                        &emsp;int str[4];<br>
+                        &emsp;for (byte i = 0; i < mfrc522.uid.size; i++) {<br>
+                            &emsp;&emsp;str[i]=mfrc522.uid.uidByte[i];<br>
+                        &emsp;}<br>
+                        &emsp;if(str[0]==211&&str[1]==201&&str[2]==221&&str[3]==17){ //Controlla la validità del tag<br>
+                            &emsp;&emsp;Serial.println("Hm");<br>
+                            &emsp;&emsp;Serial.println(analogRead(34));<br>
+                            &emsp;&emsp;Serial.println(analogRead(35));<br>
+                            &emsp;&emsp;if(analogRead(34)>4000&&analogRead(35)>4000){ //Controlla se anche i pin sono validi (a 5v)<br>
+                            &emsp;&emsp;&emsp;String var="ApriCassaForte";<br>
+                            &emsp;&emsp;&emsp;Serial.println("Ok!");<br>
+                            &emsp;&emsp;&emsp;SerialBT.write((const uint8_t*)var.c_str(),var.length()); //Manda su bluetooth la parola magica<br>
+                            &emsp;&emsp;}<br>
+                        &emsp;}<br>
+                        // Arresta la lettura della carta<br>
+                        &emsp;mfrc522.PICC_HaltA();<br>
+                        &emsp;mfrc522.PCD_StopCrypto1();<br>
+                    }
+                </div>
+                <div class="text codi" id="rasp">
+                    #!/usr/bin/env python3
+<br>                    from flask import Flask, render_template, jsonify
+<br>                    import bluetooth
+<br>
+<br>                    app = Flask(_name_)
+<br>
+<br>                    @app.route("/")
+<br>                    def hello():
+<br>                        &emsp;return render_template("Index.html")
+<br>                    @app.route('/aperto')
+<br>                    def scan():
+<br>                        &emsp;server_sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+<br>                        &emsp;server_sock.bind(("", bluetooth.PORT_ANY))
+<br>                        &emsp;server_sock.listen(1)
+<br>                        &emsp;print("[+] Socket bluetooth creato e in ascolto")
+<br>
+<br>                        &emsp;# Ottieni la porta
+<br>                        &emsp;port = server_sock.getsockname()[1]
+<br>                        &emsp;uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
+<br>                        &emsp;print("[+] Porta relativa al socket : " + str(port))
+<br>                        &emsp;launch=0
+<br>                        &emsp;try:
+<br>                            &emsp;&emsp;bluetooth.advertise_service(
+<br>                                &emsp;&emsp;&emsp;server_sock,
+<br>                                &emsp;&emsp;&emsp;"AutoAcceptServer",
+<br>                                &emsp;&emsp;&emsp;service_id=uuid,
+<br>                                &emsp;&emsp;&emsp;service_classes=[uuid, bluetooth.SERIAL_PORT_CLASS],
+<br>                                &emsp;&emsp;&emsp;profiles=[bluetooth.SERIAL_PORT_PROFILE]
+<br>                            &emsp;&emsp;)
+<br>                            &emsp;&emsp;print("[!] Servizio disponibile all'esterno")
+<br>                        &emsp;except bluetooth.BluetoothError as e:
+<br>                            &emsp;&emsp;print("[-] Errore nella pubblicazione del servizio\n\t" + str(e))
+<br>
+<br>                        &emsp;while True:
+<br>                            &emsp;&emsp;print("[ Server in attesa di connessioni dall'esterno ]")
+<br>                            &emsp;&emsp;try:
+<br>                                &emsp;&emsp;&emsp;client_sock, client_info = server_sock.accept()
+<br>                                &emsp;&emsp;&emsp;print("[+] Client connesso : " + str(client_info))
+<br>                                &emsp;&emsp;&emsp;if(str(client_info)!="ADRESS"):     #CONTROLLARE L'ADRESS
+<br>                                    &emsp;&emsp;&emsp;&emsp;print("Client sconosciuto. Disconnessione.")
+<br>                                &emsp;&emsp;&emsp;else:
+<br>                                    &emsp;&emsp;&emsp;&emsp;print("[START Chat]")
+<br>                                    &emsp;&emsp;&emsp;&emsp;while True:
+<br>                                        &emsp;&emsp;&emsp;&emsp;&emsp;data = client_sock.recv(1024)
+<br>                                        &emsp;&emsp;&emsp;&emsp;&emsp;if not data:
+<br>                                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;break
+<br>                                        &emsp;&emsp;&emsp;&emsp;&emsp;var = data.decode('utf-8')
+<br>                                        &emsp;&emsp;&emsp;&emsp;&emsp;print("Ricevuto:", var)
+<br>                                        &emsp;&emsp;&emsp;&emsp;&emsp;if(var.strip() == "ApriCassaForte"):
+<br>                                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;launch = 1
+<br>                                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;print("Found it!")
+<br>                                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;break
+<br>                                        &emsp;&emsp;&emsp;&emsp;&emsp;else:
+<br>                                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;print("What")
+<br>
+<br>                            &emsp;&emsp;except OSError:
+<br>                                &emsp;&emsp;&emsp;pass
+<br>
+<br>                            &emsp;&emsp;client_sock.close()
+<br>                            &emsp;&emsp;print("[END Chat]")
+<br>                            &emsp;&emsp;print("[-] Client disconnesso")
+<br>                            &emsp;&emsp;if launch == 1:
+<br>                                &emsp;&emsp;&emsp;break
+<br>                        &emsp;server_sock.close()
+<br>                        &emsp;print("[Server terminato.]")
+<br>                        &emsp;if launch == 0:
+<br>                            &emsp;&emsp;return "Validazione mancante!"
+<br>                        &emsp;return render_template("aperta.html")
+<br>                    if _name_ == '_main_':
+<br>                        &emsp;app.run(host='0.0.0.0', port=5001)
+                </div>
+                <div class="text codi" id="ardu">
+                    #include &ltSPI.h>
+<br>                    #include &ltRFID.h>
+<br>
+<br>                    RFID rfid(10, 9);
+<br>                    unsigned char status;
+<br>                    unsigned char str[MAX_LEN]; //MAX_LEN is 16: size of the array
+<br>                    void setup(){
+<br>                    &emsp;pinMode(5, OUTPUT);
+<br>                    &emsp;Serial.begin(9600);
+<br>                    &emsp;SPI.begin();
+<br>                    &emsp;rfid.init();
+<br>                    }
+<br>                    void loop(){
+<br>                    &emsp;if (rfid.findCard(PICC_REQIDL, str) == MI_OK) { // controlla se il rfid trova un tag libero, se lo trova esegue il codice
+<br>                       &emsp;&emsp;if (rfid.anticoll(str) == MI_OK) { // indentifica se ci sono collisioni
+<br>                        &emsp;&emsp;&emsp;Serial.println("GI");
+<br>                        &emsp;&emsp;&emsp;if(str[0]==99&&str[1]==204&&str[2]==134&&str[3]==13){
+<br>                            &emsp;&emsp;&emsp;&emsp;digitalWrite(5, HIGH);
+<br>                            &emsp;&emsp;&emsp;&emsp;delay(2000);
+<br>                            &emsp;&emsp;&emsp;&emsp;digitalWrite(5,LOW);
+<br>                        &emsp;&emsp;&emsp;}
+<br>                        &emsp;&emsp;}
+<br>                        &emsp;rfid.selectTag(str); // seleziona il tag che viene indicato dalla stringa
+<br>                    &emsp;}
+<br>                        &emsp;rfid.halt(); // command the card to enter sleeping state
+<br>                    }
+                </div>
+            </div>
+            <div class="s" id="a">
+                <div class="text">
+                <h2>Ruoli e Responsabilità</h2>
+                <table>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Ruolo</th>
+                        <th>Responsabilità</th>
+                    </tr>
+                    <tr>
+                        <th>Chen Bo Xuan</th>
+                        <th>Developer</th>
+                        <th>Realizzazione fisica dei collegamenti, test hardware e supporto tecnico generale.</th>
+                    </tr>
+                    <tr>
+                        <th>Tronini Luca</th>
+                        <th>Project Manager</th>
+                        <th>Coordinamento generale, sviluppo backend con Flask per interfaccia PC-Raspberry.</th>
+                    </tr>
+                    <tr>
+                        <th>De Filippo Luca</th>
+                        <th>Developer</th>
+                        <th>sviluppa interfaccia grafica con utente usando JavaScript, HTML e CSS</th>
+                    </tr>
+                    <tr>
+                        <th>Paiardi Stefano</th>
+                        <th>Project Designer</th>
+                        <th>Progettazione e documentazione del sistema e sviluppo codice Arduino per lettura RFID.</th>
+                    </tr>
+                </div>
+            </div>
+        </body>
+	<script>
+		function toSlide(id){
+    document.querySelectorAll("div.s").forEach(e =>{
+        e.classList.remove("visible");
+        e.querySelectorAll("*").forEach(x => {
+            x.tabIndex="-1";
+        });
+    });
+    document.getElementById(id).classList.add("visible");
+    document.getElementById(id).querySelectorAll("*").forEach(x => {
+        x.tabIndex="";
+    });
+}
+
+function toCodice(id){
+    document.querySelectorAll("div.codici").forEach(e=>{
+        e.querySelectorAll("button").forEach(x=>{
+            x.classList.remove("sel");
+        });
+    });
+    document.getElementById("b"+id).classList.add("sel");
+    document.querySelectorAll("div.codi").forEach(e =>{
+        e.classList.remove("visible");
+        e.querySelectorAll("*").forEach(x => {
+            x.tabIndex="-1";
+        });
+    });
+    document.getElementById(id).classList.add("visible");
+    document.getElementById(id).querySelectorAll("*").forEach(x => {
+        x.tabIndex="";
+    });
+}
+
+function codi(){
+    toSlide('c');
+    toCodice('esp');
+}
+
+function open(){
+    window.location.href='forte.html';
+}
+	</script>
+</html>
